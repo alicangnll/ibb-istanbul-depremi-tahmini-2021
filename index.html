@@ -115,13 +115,6 @@
         http.send();
     }
 
-    function searchStringInArray(str, strArray) {
-        for (var j = 0; j < strArray.length; j++) {
-            if (strArray[j].match(str)) return j;
-        }
-        return -1;
-    }
-
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
