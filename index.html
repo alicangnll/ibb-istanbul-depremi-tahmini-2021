@@ -14,6 +14,7 @@
     <script src="leaflet/dist/leaflet.markercluster.js"></script>
     <title>Istanbul Deprem Simülasyonu</title>
 </head>
+
 <style>
     * {
         margin: 0;
@@ -80,6 +81,8 @@
         }
     }
 
+    // Kaynak : https://data.ibb.gov.tr/dataset/deprem-senaryosu-analiz-sonuclari/resource/9c3ac492-de4b-4245-b418-7ad3df67a193
+
     function ekleveri(lat, lon, aciklama) {
         var http = new XMLHttpRequest();
         http.open("GET", "deprem.json", true);
@@ -109,8 +112,8 @@
                     lookup.push([lat, lon]);
                     if (isLocationFree(lookup, [lat, lon]) == false) {
                         var marker = L.marker(new L.LatLng(lat, lon));
+                        marker.bindPopup(yaz).openPopup();
                         markers.addLayer(marker);
-                        markers.bindPopup(yaz).openPopup();
                         map.addLayer(markers);
                         map.fitBounds(markers.getBounds());
                     }
