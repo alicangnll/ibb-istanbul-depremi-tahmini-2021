@@ -1,3 +1,4 @@
+
 <!-- Kaynak : https://data.ibb.gov.tr/dataset/deprem-senaryosu-analiz-sonuclari/resource/9c3ac492-de4b-4245-b418-7ad3df67a193 -->
 <head>
     <meta http-equiv="cache-control" content="no-cache">
@@ -114,6 +115,8 @@
                         var marker = L.marker(new L.LatLng(lat, lon));
                         marker.bindPopup(yaz).openPopup();
                         markers.addLayer(marker);
+                        map.addLayer(markers);
+                        map.fitBounds(markers.getBounds());
                     }
                 }
             }
