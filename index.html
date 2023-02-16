@@ -154,18 +154,15 @@
                     var lookup = [];
                     lookup.push([lat, lon]);
                     if (isLocationFree(lookup, [lat, lon]) == false) {
-                        
-                        var marker = L.marker([lat, lon]);
-marker.bindPopup(yaz).openPopup();
+                        var marker = L.marker(new L.LatLng(lat, lon));
 
-
-                        marker.addTo(map);
-                        
                         markers.addLayer(marker);
-       
-                      
 
+                        markers.bindPopup(yaz).openPopup();
 
+                        map.addLayer(markers);
+
+                        map.fitBounds(markers.getBounds());
                     }
                 }
             }
