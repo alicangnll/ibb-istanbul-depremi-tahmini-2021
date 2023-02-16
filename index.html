@@ -109,10 +109,16 @@
                     var lookup = [];
                     lookup.push([lat, lon]);
                     if (isLocationFree(lookup, [lat, lon]) == false) {
-                        var marker = L.marker(new L.LatLng(lat, lon));
+                        
+                        var marker = L.marker([lat, lon]);
+marker.bindPopup(yaz).openPopup();
+
+
+                        marker.addTo(map);
+                        
                         markers.addLayer(marker);
-                        marker.bindPopup(yaz).openPopup();
-                        map.addLayer(markers);
+       
+                      
 
 
                     }
