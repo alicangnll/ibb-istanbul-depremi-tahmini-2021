@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Deprem Yardımlaşma Haritası">
     <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="leaflet/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="leaflet/dist/MarkerCluster.Default.css" />  
     <script src="leaflet/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
     <title>Istanbul Deprem Simülasyonu</title>
 </head>
 
@@ -65,6 +68,8 @@
         attribution: '&copy; <a target="blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' + ' | &copy; <a  target="blank" href="https://alicangonullu.org/yasal">Ali Can Gönüllü</a>'
     }).addTo(map);
 
+    var markers = L.markerClusterGroup();
+
     function isLocationFree(look, search) {
         for (var i = 0, l = look.length; i < l; i++) {
             if (look[i][0] == search[0] && look[i][1] == search[1]) {
@@ -105,9 +110,10 @@
                     var lookup = [];
                     lookup.push([lat, lon]);
                     if (isLocationFree(lookup, [lat, lon]) == false) {
-                        var marker = L.marker([lat, lon]);
-                        marker.bindPopup(yaz).openPopup();
-                        marker.addTo(map);
+                        var marker = L.marker(new L.LatLng(lat, lon));
+                        markers.addLayer(marker);
+                        map.addLayer(markers);
+                        map.fitBounds(markers.getBounds());
                     }
                 }
             }
