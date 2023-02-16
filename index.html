@@ -111,9 +111,9 @@
                     if (isLocationFree(lookup, [lat, lon]) == false) {
                         var marker = L.marker(new L.LatLng(lat, lon));
                         markers.addLayer(marker);
-                        markers.bindPopup(yaz).openPopup();
+                        marker.bindPopup(yaz).openPopup();
                         map.addLayer(markers);
-                        map.fitBounds(markers.getBounds());
+
                     }
                 }
             }
