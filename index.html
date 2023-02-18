@@ -1,5 +1,5 @@
-
 <!-- Kaynak : https://data.ibb.gov.tr/dataset/deprem-senaryosu-analiz-sonuclari/resource/9c3ac492-de4b-4245-b418-7ad3df67a193 -->
+
 <head>
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
@@ -10,8 +10,9 @@
     <meta name="description" content="Deprem Yardımlaşma Haritası">
     <link rel="stylesheet" href="leaflet/leaflet.css" />
     <link rel="stylesheet" href="leaflet/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="leaflet/dist/MarkerCluster.Default.css" />  
+    <link rel="stylesheet" href="leaflet/dist/MarkerCluster.Default.css" />
     <script src="leaflet/leaflet.js"></script>
+    <script src="leaflet/jquery-3.6.3.min.js"></script>
     <script src="leaflet/dist/leaflet.markercluster.js"></script>
     <title>Istanbul Deprem Simülasyonu</title>
 </head>
@@ -39,6 +40,18 @@
             display: inline-block;
             z-index: 99999999999;
         }
+
+        .afet {
+            background-color: #4CAF50;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            margin-top: 50px;
+            padding: 10px;
+            display: inline-block;
+            z-index: 99999999999;
+        }
     }
 
     @media only screen and (max-width: 600px) {
@@ -56,11 +69,41 @@
             display: inline-block;
             z-index: 99999999999;
         }
+
+        .afet {
+            background-color: #4CAF50;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            margin-top: 20%;
+            padding: 10px;
+            display: inline-block;
+            z-index: 99999999999;
+        }
+    }
+
+    .refreshButton {
+        background-color: #4CAF50;
+        text-decoration: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        display: inline-block;
+        z-index: 99999999999;
     }
 </style>
 
 <body>
-    <div id="map"><div class="umut"><b>İBB tarafından tahmin edilen deprem verileridir.<br>Veri seti 7.5 Mw büyüklüğünde gece olacak deprem senaryosuna göre yapılan analizlerin sonuçlarını içerir.<br>Kaynak : <a target='_blank' href='https://data.ibb.gov.tr/dataset/deprem-senaryosu-analiz-sonuclari/resource/9c3ac492-de4b-4245-b418-7ad3df67a193'>İBB Deprem Senaryosu Analizi</a></b></div></div>
+    <div id="map">
+        <div class="umut"><b>İBB tarafından tahmin edilen deprem verileridir.<br>Veri seti 7.5 Mw büyüklüğünde gece
+                olacak deprem senaryosuna göre yapılan analizlerin sonuçlarını içerir.<br>Kaynak : <a target='_blank'
+                    href='https://data.ibb.gov.tr/dataset/deprem-senaryosu-analiz-sonuclari/resource/9c3ac492-de4b-4245-b418-7ad3df67a193'>İBB
+                    Deprem Senaryosu Analizi</a></b></div>
+    </div>
+
+    <a target="_blank" onclick="fay_hatlari()" class="refreshButton" style="color: #ffffff;">Fay Hatlarını Göster</a>
 </body>
 
 <script>
@@ -124,7 +167,7 @@
         http.send();
     }
 
-    
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -143,4 +186,10 @@
         http.send();
     }
     ilce_konum();
+    function fay_hatlari() {
+        $.getJSON("fay_hatlari_global.geojson", function (data) {
+            // L.geoJson function is used to parse geojson file and load on to map
+            L.geoJson(data).addTo(map);
+        });
+    }
 </script>
