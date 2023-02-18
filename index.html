@@ -103,7 +103,7 @@
                     Deprem Senaryosu Analizi</a></b></div>
     </div>
 
-    <a target="_blank" onclick="fay_hatlari()" class="refreshButton" style="color: #ffffff;">Fay Hatlarını Göster</a>
+    <div id="gizle"></div>
 </body>
 
 <script>
@@ -186,10 +186,18 @@
         http.send();
     }
     ilce_konum();
+
+    document.getElementById("gizle").innerHTML = '<a target="_blank" onclick="fay_hatlari()" class="refreshButton" style="color: #ffffff;">Fay Hatlarını Göster</a>';
+    
     function fay_hatlari() {
         $.getJSON("fay_hatlari_global.geojson", function (data) {
-            // L.geoJson function is used to parse geojson file and load on to map
             L.geoJson(data).addTo(map);
         });
+        document.getElementById("gizle").innerHTML = '';
+        document.getElementById("gizle").innerHTML = '<a target="_blank" onclick="silfay()" class="refreshButton" style="color: #ffffff;">Fay Hatlarını Gizle</a>';
+    }
+
+    function silfay() {
+        location.reload();
     }
 </script>
